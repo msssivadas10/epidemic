@@ -1,4 +1,5 @@
 import math, random
+from turtle import color
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 
@@ -61,39 +62,39 @@ class person:
         ax.set_xlim([0., 100])
         ax.set_ylim([0., 100])
 
-n = 500
+n = 250
 people = [person() for i in range(n)]
 
 n_exp, n_inf, n_rec = [n, ], [0, ], [0, ]
 
 random.choice(people).infect()
 
-fig, (ax, ax2) = plt.subplots(2, 1, figsize = [6, 8], gridspec_kw = {"height_ratios":[1, 0.25]})
+# fig, (ax, ax2) = plt.subplots(2, 1, figsize = [6, 8], gridspec_kw = {"height_ratios":[1, 0.25]})
 
-ax2.set_xlabel('t')
-ax2.set_ylabel('count')
+# ax2.set_xlabel('t')
+# ax2.set_ylabel('count')
 
-ax2.plot([], [], '-', color = colours[0], label = "exp.")
-ax2.plot([], [], '-', color = colours[1], label = "inf.")
-ax2.plot([], [], '-', color = colours[2], label = "rec.")
-ax2.legend()
+# ax2.plot([], [], '-', color = colours[0], label = "exp.")
+# ax2.plot([], [], '-', color = colours[1], label = "inf.")
+# ax2.plot([], [], '-', color = colours[2], label = "rec.")
+# ax2.legend()
 
-t = []
+t = [0, ]
 change_v = False
 for ti in range(100):
     t.append(ti)
-    
+
     for _ in range(tres):
-        ax.cla()
-        ax.text(0., 0., 'Day {}'.format(t[-1]))
+        # ax.cla()
+        # ax.text(0., 0., 'Day {}'.format(t[-1]))
 
         for p in people:
-            p.draw(ax)
+            # p.draw(ax)
             p.update()
 
-        ax2.plot(t, n_exp, '-', color = colours[0], label = "exp.")
-        ax2.plot(t, n_inf, '-', color = colours[1], label = "inf.")
-        ax2.plot(t, n_rec, '-', color = colours[2], label = "rec.")
+        # ax2.plot(t, n_exp, '-', color = colours[0], label = "exp.")
+        # ax2.plot(t, n_inf, '-', color = colours[1], label = "inf.")
+        # ax2.plot(t, n_rec, '-', color = colours[2], label = "rec.")
 
 
         for p in people:
@@ -113,19 +114,12 @@ for ti in range(100):
     n_inf.append(_n_inf)
     n_rec.append(_n_rec)
 
-    if n_inf[-1] > int(0.2 * n):
-        # r_inf /= 8
-        change_v = True
-        for p in people:
-            p.vx  = random.uniform(-10., 10.) / 4.
-            p.vy  = random.uniform(-10., 10.) / 4.
-    elif n_inf[-1] < int(0.1 * n):
-        # r_inf = r_inf0
-        if change_v:
-            change_v = False
-            for p in people:
-                p.vx  = random.uniform(-10., 10.) 
-                p.vy  = random.uniform(-10., 10.) 
+    
 
 
+
+plt.figure()
+# plt.plot(t, n_exp, '-', color = colours[0])
+plt.plot(t, n_inf, '-', color = colours[1])
+# plt.plot(t, n_rec, '-', color = colours[2])
 plt.show()
